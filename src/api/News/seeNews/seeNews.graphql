@@ -1,0 +1,3 @@
+type Query {
+  seeNews(id: String!): News!
+}

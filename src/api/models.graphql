@@ -1,0 +1,90 @@
+type User {
+  id: ID!
+  username: String!
+  email: String!
+  firstName: String
+  lastName: String
+  bio: String
+  posts: [Post!]!
+  reporters: [User!]!
+  reporting: [User!]!
+  ups: [Up!]!
+  downs: [Down!]!
+  postreports: [Postreport!]!
+  commentreports: [Commentreport!]!
+  comments: [Comment!]!
+  createdAt: String
+  updatedAt: String
+  loginSecret: String
+}
+
+type Post {
+  id: ID!
+  newsurl: News!
+  description: String!
+  user: User!
+  comments: [Comment!]!
+  ups: [Up!]!
+  downs: [Down!]!
+  postreports: [Postreport!]!
+  createdAt: String
+  updatedAt: String
+  isUp: Boolean!
+  isDown: Boolean!
+  UpCount: Int!
+  DownCount: Int!
+  CommentCount: Int!
+}
+
+type News {
+  id: ID!
+  newsurl: String!
+  title: String
+  user: User
+  detail: String
+  posts: [Post!]!
+  createdAt: String
+  updatedAt: String
+}
+
+type Comment {
+  id: ID!
+  text: String!
+  user: User!
+  post: Post!
+  commentreports: [Commentreport!]!
+  createdAt: String
+  updatedAt: String
+}
+
+type Up {
+  id: ID!
+  user: User!
+  post: Post!
+  createdAt: String
+  updatedAt: String
+}
+
+type Down {
+  id: ID!
+  user: User!
+  post: Post!
+  createdAt: String
+  updatedAt: String
+}
+
+type Postreport {
+  id: ID!
+  user: User!
+  post: Post!
+  createdAt: String
+  updatedAt: String
+}
+
+type Commentreport {
+  id: ID!
+  user: User!
+  comment: Comment!
+  createdAt: String
+  updatedAt: String
+}

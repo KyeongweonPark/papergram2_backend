@@ -1,0 +1,89 @@
+type User {
+  id: ID! @id
+  username: String! @unique
+  email: String! @unique
+  firstName: String @default(value: "")
+  lastName: String
+  bio: String
+  posts: [Post!]! @relation(name: "PostsOfUser", onDelete: CASCADE)
+  reporters: [User!]! @relation(name: "ReportRelation")
+  reporting: [User!]! @relation(name: "ReportRelation")
+  ups: [Up!]! @relation(name: "UpsOfUser", onDelete: CASCADE)
+  downs: [Down!]! @relation(name: "DownsOfUser", onDelete: CASCADE)
+  postreports: [Postreport!]!
+    @relation(name: "PostreportsOfUser", onDelete: CASCADE)
+  commentreports: [Commentreport!]!
+    @relation(name: "CommentreportsOfUser", onDelete: CASCADE)
+  comments: [Comment!]! @relation(name: "CommentsOfUser", onDelete: CASCADE)
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  loginSecret: String
+}
+
+type Post {
+  id: ID! @id
+  newsurl: News! @relation(name: "PostsOfNews")
+  description: String!
+  user: User! @relation(name: "PostsOfUser")
+  comments: [Comment!]! @relation(name: "CommentsOfPost", onDelete: CASCADE)
+  ups: [Up!]! @relation(name: "UpsOfPost", onDelete: CASCADE)
+  downs: [Down!]! @relation(name: "DownsOfPost", onDelete: CASCADE)
+  postreports: [Postreport!]!
+    @relation(name: "PostreportsOfPost", onDelete: CASCADE)
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+type News {
+  id: ID! @id
+  newsurl: String! @unique
+  title: String
+  user: User
+  detail: String
+  posts: [Post!]! @relation(name: "PostsOfNews", onDelete: CASCADE)
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+type Comment {
+  id: ID! @id
+  text: String!
+  user: User! @relation(name: "CommentsOfUser")
+  post: Post! @relation(name: "CommentsOfPost")
+  commentreports: [Commentreport!]!
+    @relation(name: "CommentreportsOfComment", onDelete: CASCADE)
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+type Up {
+  id: ID! @id
+  user: User! @relation(name: "UpsOfUser")
+  post: Post! @relation(name: "UpsOfPost")
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+type Down {
+  id: ID! @id
+  user: User! @relation(name: "DownsOfUser")
+  post: Post! @relation(name: "DownsOfPost")
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+type Postreport {
+  id: ID! @id
+  user: User! @relation(name: "PostreportsOfUser")
+  post: Post! @relation(name: "PostreportsOfPost")
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+type Commentreport {
+  id: ID! @id
+  user: User! @relation(name: "CommentreportsOfUser")
+  comment: Comment! @relation(name: "CommentreportsOfComment")
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
