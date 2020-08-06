@@ -39,6 +39,30 @@ export default {
             },
           });
         }
+        const upcount = await prisma
+          .upsConnection({
+            where: { post: { id: postId } },
+          })
+          .aggregate()
+          .count();
+        const downcount = await prisma
+        .downsConnection({
+          where: { post: { id: postId } },
+        })
+        .aggregate()
+        .count();
+        const reportcount = await prisma
+        .postreportsConnection({
+          where: { post: { id: postId } },
+        })
+        .aggregate()
+        .count();
+
+        const count = upcount-downcount-100*reportcount;
+        await prisma.updatePost({
+          data: { priority: count },
+          where: { id: postId },
+        });
         return true;
       } catch {
         return false;

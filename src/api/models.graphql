@@ -16,6 +16,13 @@ type User {
   createdAt: String
   updatedAt: String
   loginSecret: String
+  postsCount: Int!
+  commentsCount: Int!
+  reportingCount: Int!
+  reportersCount: Int!
+  fullName: String
+  isReporting: Boolean!
+  isSelf: Boolean!
 }
 
 type Post {
@@ -31,20 +38,26 @@ type Post {
   updatedAt: String
   isUp: Boolean!
   isDown: Boolean!
+  isPostReport: Boolean!
   UpCount: Int!
   DownCount: Int!
   CommentCount: Int!
+  PostReportCount: Int!
+  priority: Int
 }
 
 type News {
   id: ID!
   newsurl: String!
+  imgurl: String
   title: String
   user: User
   detail: String
   posts: [Post!]!
   createdAt: String
   updatedAt: String
+  PostCount: Int!
+  postcount: Int
 }
 
 type Comment {
@@ -55,6 +68,7 @@ type Comment {
   commentreports: [Commentreport!]!
   createdAt: String
   updatedAt: String
+  CommentReportCount: Int!
 }
 
 type Up {

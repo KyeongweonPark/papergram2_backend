@@ -32,17 +32,20 @@ type Post {
     @relation(name: "PostreportsOfPost", onDelete: CASCADE)
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
+  priority: Int @default(value: 0)
 }
 
 type News {
   id: ID! @id
   newsurl: String! @unique
+  imgurl: String
   title: String
   user: User
   detail: String
   posts: [Post!]! @relation(name: "PostsOfNews", onDelete: CASCADE)
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
+  postcount: Int @default(value: 0)
 }
 
 type Comment {

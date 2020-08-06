@@ -5,12 +5,12 @@ export default {
     addNews: async (_, args, { request, isAuthenticated }) => {
       isAuthenticated(request);
       const { user } = request;
-      const { newsurl, title, detail } = args;
+      const { newsurl, title, detail, imgurl } = args;
       const news = await prisma.createNews({
         newsurl,
         title,
         detail,
-        user: { connect: { id: user.id } },
+        imgurl,
       });
       return news;
     },

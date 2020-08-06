@@ -79,6 +79,7 @@ typings/
 .next
 generated
 prisma.yml
+build
 
 # Nuxt.js build / generate output
 .nuxt

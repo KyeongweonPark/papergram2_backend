@@ -5,7 +5,7 @@ export default {
     addPost: async (_, args, { request, isAuthenticated }) => {
       isAuthenticated(request);
       const { user } = request;
-      const { newsId, description} = args;
+      const { newsId, description } = args;
       const post = await prisma.createPost({
         newsurl: {
           connect: {
@@ -14,8 +14,16 @@ export default {
         },
         description,
         user: { connect: { id: user.id } },
-      });   
+      });
+      const count = await prisma
+        .postsConnection({ where: { newsurl: { id: newsId } } })
+        .aggregate()
+        .count();
+      await prisma.updateNews({
+        data: { postcount: count },
+        where: { id: newsId },
+      });
       return post;
-    }
-  }
+    },
+  },
 };

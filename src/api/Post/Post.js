@@ -43,5 +43,19 @@ export default {
         })
         .aggregate()
         .count(),
+    PostReportCount: (parent) =>
+      prisma
+        .postreportsConnection({
+          where: { post: { id: parent.id } },
+        })
+        .aggregate()
+        .count(),
+    isPostReport: async (parent, _, { request }) => {
+      const { user } = request;
+      const { id } = parent;
+      return prisma.$exists.postreport({
+        AND: [{ user: { id: user.id } }, { post: { id } }],
+      });
+    },
   },
 };
