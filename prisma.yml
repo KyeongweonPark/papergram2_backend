@@ -1,4 +1,6 @@
 endpoint: ${env:PRISMA_ENDPOINT}
+
+# endpoint: "https://commentagram-pd-9a7278b409.herokuapp.com/commentagram-pd/prod"
 datamodel: datamodel.prisma
 
 generate:
