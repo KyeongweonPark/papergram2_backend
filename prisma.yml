@@ -1,6 +1,8 @@
 endpoint: ${env:PRISMA_ENDPOINT}
 
 # endpoint: "https://commentagram-pd-9a7278b409.herokuapp.com/commentagram-pd/prod"
+
+# 위의 엔드포인트로 놓고 수동으로 Prisma Service 생성, prisma deploy.
 datamodel: datamodel.prisma
 
 generate:
